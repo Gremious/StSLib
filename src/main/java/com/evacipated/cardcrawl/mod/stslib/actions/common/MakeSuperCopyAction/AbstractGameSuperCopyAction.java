@@ -22,7 +22,7 @@ import java.util.Collection;
 public abstract class AbstractGameSuperCopyAction extends AbstractGameAction implements SuperCopyBuilderInterface {
     public static final Logger logger = LogManager.getLogger(StSLib.class.getName());
 
-    public SuperCopyGetSet copy;
+    public static SuperCopyGetSet copy;
     public AbstractCard card = new Madness();
     private ArrayList<AbstractCard> amountCards = new ArrayList<>();
     public static final UIStrings uiStrings = CardCrawlGame.languagePack.getUIString("stslib:MakeSuperCopyAction");
@@ -32,20 +32,6 @@ public abstract class AbstractGameSuperCopyAction extends AbstractGameAction imp
     public AbstractGameSuperCopyAction() {
         copy = new SuperCopyGetSet();
         this.duration = Settings.ACTION_DUR_FASTER;
-
-        addCard();
-        addKeywords();
-        addRemoveKeyword();
-        addCost();
-        addAddLocation();
-        addRandomSpot();
-        addAddToBottomOfDeck();
-        addAmount();
-
-        for (int i = 0; i < copy.getAmount(); i++) {
-            amountCards.add(copy.getCard().makeStatEquivalentCopy());
-        }
-
     }
 
     // Set your setters. Ready your getters. Vroom vroom.
@@ -92,12 +78,6 @@ public abstract class AbstractGameSuperCopyAction extends AbstractGameAction imp
     }
 
     //--
-    // Keywords:
-
-    public void setupKeywords() {
-        setupExhaust();
-        setupEthereal();
-    }
 
     public void setupExhaust() {
         if (copy.getKeywords() != null && copy.getKeywords().contains(SuperCopyInterface.superCopyKeywords.EXHAUST)) {
@@ -153,7 +133,6 @@ public abstract class AbstractGameSuperCopyAction extends AbstractGameAction imp
                         logger.info("Adding " + c + " with REMOVED Unplayable.");
                     }
                 }
-
             } else {
                 for (AbstractCard c : amountCards) {
                     if (c.cost != -2) {
@@ -166,7 +145,6 @@ public abstract class AbstractGameSuperCopyAction extends AbstractGameAction imp
         }
     }
     //--
-    // Cost:
 
     public void setupCost() {
         if (copy.getCost() != null) {
@@ -174,12 +152,9 @@ public abstract class AbstractGameSuperCopyAction extends AbstractGameAction imp
                 c.cost = copy.getCost();
             }
         }
-
-
     }
 
     //--
-    // Add the cards to location:
 
     public void setupAddLocation() {
         for (AbstractCard c : amountCards) {
@@ -214,12 +189,35 @@ public abstract class AbstractGameSuperCopyAction extends AbstractGameAction imp
     @Override
     public void update() {
         if (duration == Settings.ACTION_DUR_FASTER) {
-            setupKeywords();
+            addCard();
+            addAmount();
+            addKeywords();
+            addRemoveKeyword();
+            addCost();
+            addAddLocation();
+            addRandomSpot();
+            addAddToBottomOfDeck();
+
+            for (int i = 0; i < copy.getAmount(); i++) {
+                amountCards.add(copy.getCard().makeStatEquivalentCopy());
+            }
+
+            setupExhaust();
+            setupEthereal();
             setupCost();
             setupUnplayable();
             setupAddLocation();
+
+
+            for (AbstractCard c : amountCards) {
+                c.initializeDescription();
+            }
+
+            AbstractDungeon.player.hand.refreshHandLayout();
+            AbstractDungeon.player.hand.glowCheck();
             tickDuration();
         }
+        tickDuration();
     }
 }
 
