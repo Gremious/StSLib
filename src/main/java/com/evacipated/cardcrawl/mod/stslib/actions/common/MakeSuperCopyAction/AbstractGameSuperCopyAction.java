@@ -48,6 +48,8 @@ public abstract class AbstractGameSuperCopyAction extends AbstractGameAction imp
 
     }
 
+    // Set your setters. Ready your getters. Vroom vroom.
+
     @Override
     public void addCard() {
         copy.setCard(card);
@@ -90,6 +92,7 @@ public abstract class AbstractGameSuperCopyAction extends AbstractGameAction imp
     }
 
     //--
+    // Keywords:
 
     public void setupKeywords() {
         setupExhaust();
@@ -99,23 +102,44 @@ public abstract class AbstractGameSuperCopyAction extends AbstractGameAction imp
         if (copy.getKeywords() != null && copy.getKeywords().contains(SuperCopyInterface.superCopyKeywords.EXHAUST)) {
             for (AbstractCard c : amountCards) {
                 if (copy.getRemoveKeyword()) {
-
                     if (c.exhaust) {
                         c.exhaust = false;
                         c.rawDescription = c.rawDescription.replaceAll(KEYWORD_STRINGS[2], "");
-                        logger.info("Adding " + c + " with REMOVED Exhaust.");
+                        logger.info("Adding a copy of " + c + " with REMOVED Exhaust.");
                     }
-
                 } else {
                     if (!c.exhaust) {
                         c.exhaust = true;
                         c.rawDescription = c.rawDescription + KEYWORD_STRINGS[3];
-                        logger.info("Adding " + c + " with Exhaust.");
+                        logger.info("Adding a copy of " + c + " with Exhaust.");
                     }
                 }
             }
         }
     }
+
+    public void setupEthereal() {
+        if (copy.getKeywords() != null && copy.getKeywords().contains(SuperCopyInterface.superCopyKeywords.ETHEREAL)) {
+            for (AbstractCard c : amountCards) {
+                if (copy.getRemoveKeyword()) {
+                    if (c.exhaust) {
+                        c.exhaust = false;
+                        c.rawDescription = c.rawDescription.replaceAll(KEYWORD_STRINGS[4], "");
+                        logger.info("Adding a copy of " + c + " with REMOVED Exhaust.");
+                    }
+                } else {
+                    if (!c.exhaust) {
+                        c.exhaust = true;
+                        c.rawDescription = c.rawDescription + KEYWORD_STRINGS[5];
+                        logger.info("Adding a copy of " + c + " with Exhaust.");
+                    }
+                }
+            }
+        }
+    }
+
+    //--
+    // Cost:
 
     public void setupCost() {
         if (copy.getCost() != null) {
@@ -129,6 +153,8 @@ public abstract class AbstractGameSuperCopyAction extends AbstractGameAction imp
         }
     }
 
+    //--
+    // Add the cards to location:
 
     public void setupAddLocation() {
         for (AbstractCard c : amountCards) {
@@ -168,6 +194,10 @@ public abstract class AbstractGameSuperCopyAction extends AbstractGameAction imp
             setupCost();
             setupAddLocation();
             tickDuration();
+        }
+    }
+}
+
  /*
            if (keywords != null) {
                 if (keyword.equals(KEYWORD_STRINGS[0])) {
@@ -227,8 +257,5 @@ public abstract class AbstractGameSuperCopyAction extends AbstractGameAction imp
 
             //    tickDuration();
             */
-        }
-    }
-}
-}
+
 
