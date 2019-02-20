@@ -14,11 +14,12 @@ public class SuperCopyGetSet implements SuperCopyInterface {
     private Integer setCost;
     private boolean removeKeyword;
     private boolean randomSpot;
+    private boolean toBottom;
 
 
     @Override
     public void setCard(AbstractCard card) {
-        this.card = card;
+        this.card = card.makeStatEquivalentCopy();
     }
 
     public AbstractCard getCard() {
@@ -59,6 +60,15 @@ public class SuperCopyGetSet implements SuperCopyInterface {
 
     public boolean getRandomSpot() {
         return randomSpot;
+    }
+
+    @Override
+    public void setAddToBottomOfDeck(boolean toBottom) {
+        this.toBottom = toBottom;
+    }
+
+    public boolean getAddToBottomOfDeck() {
+        return toBottom;
     }
 
     @Override

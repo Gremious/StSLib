@@ -17,5 +17,7 @@ public interface SuperCopyBuilderInterface {
 
     public void addRandomSpot();
 
+    public void addAddToBottomOfDeck();
+
     public void addAmount();
 }

@@ -34,6 +34,8 @@ public interface SuperCopyInterface {
 
     public void setRandomSpot(boolean randomSpot);
 
+    public void setAddToBottomOfDeck (boolean toBottom);
+
     public void setAmount(int amount);
 
 }
