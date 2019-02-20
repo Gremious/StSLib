@@ -41,14 +41,12 @@ public class SuperCopyTestCard extends CustomCard {
     public SuperCopyTestCard() {
         super(ID, NAME, IMG, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET);
         this.exhaust = true;
-
     }
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
         Collection<SuperCopyInterface.superCopyKeywords> keywords = new ArrayList<>();
         keywords.add(SuperCopyInterface.superCopyKeywords.EXHAUST);
-
         AbstractDungeon.actionManager.addToTop(new SuperCopyExampleAction(new Shiv(), keywords));
     }
 

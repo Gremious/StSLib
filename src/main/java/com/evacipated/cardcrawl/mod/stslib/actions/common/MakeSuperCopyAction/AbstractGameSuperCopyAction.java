@@ -139,19 +139,43 @@ public abstract class AbstractGameSuperCopyAction extends AbstractGameAction imp
         }
     }
 
+    public void setupUnplayable() {
+        if (copy.getKeywords() != null && copy.getKeywords().contains(SuperCopyInterface.superCopyKeywords.UNPLAYABLE)) {
+            if (copy.getRemoveKeyword()) {
+                for (AbstractCard c : amountCards) {
+                    if (c.cost == -2) {
+                        if (copy.getCost() != null) {
+                            c.cost = copy.getCost();
+                        } else {
+                            c.cost = 1;
+                        }
+                        c.rawDescription = c.rawDescription.replaceAll(KEYWORD_STRINGS[6], "");
+                        logger.info("Adding " + c + " with REMOVED Unplayable.");
+                    }
+                }
+
+            } else {
+                for (AbstractCard c : amountCards) {
+                    if (c.cost != -2) {
+                        c.cost = -2;
+                        c.rawDescription = KEYWORD_STRINGS[7] + c.rawDescription;
+                        logger.info("Adding " + c + " with Unplayable.");
+                    }
+                }
+            }
+        }
+    }
     //--
     // Cost:
 
     public void setupCost() {
         if (copy.getCost() != null) {
-            if (copy.getKeywords() != null && copy.getKeywords().contains(SuperCopyInterface.superCopyKeywords.UNPLAYABLE)) {
-                for (AbstractCard c : amountCards) {
-                    c.cost = -2;
-                }
-            } else {
-                card.cost = copy.getCost();
+            for (AbstractCard c : amountCards) {
+                c.cost = copy.getCost();
             }
         }
+
+
     }
 
     //--
@@ -190,9 +214,9 @@ public abstract class AbstractGameSuperCopyAction extends AbstractGameAction imp
     @Override
     public void update() {
         if (duration == Settings.ACTION_DUR_FASTER) {
-
             setupKeywords();
             setupCost();
+            setupUnplayable();
             setupAddLocation();
             tickDuration();
         }
