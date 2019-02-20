@@ -4,6 +4,7 @@ import basemod.BaseMod;
 import basemod.interfaces.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.evacipated.cardcrawl.mod.stslib.actions.common.MakeSuperCopyAction.SuperCopyTestCard;
 import com.evacipated.cardcrawl.mod.stslib.cards.interfaces.StartupCard;
 import com.evacipated.cardcrawl.mod.stslib.variables.ExhaustiveVariable;
 import com.evacipated.cardcrawl.mod.stslib.variables.RefundVariable;
@@ -112,6 +113,7 @@ public class StSLib implements
     {
     	BaseMod.addDynamicVariable(new ExhaustiveVariable());
     	BaseMod.addDynamicVariable(new RefundVariable());
+    	BaseMod.addCard(new SuperCopyTestCard());
     }
 
     public static AbstractCard getMasterDeckEquivalent(AbstractCard playingCard)

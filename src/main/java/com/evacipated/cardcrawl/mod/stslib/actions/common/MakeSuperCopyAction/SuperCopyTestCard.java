@@ -14,7 +14,7 @@ public class SuperCopyTestCard extends CustomCard {
 
     // TEXT DECLARATION
 
-    public static final String ID = "SuperCopyTestCard";
+    public static final String ID = "stsLib:SuperCopyTestCard";
 
     public static final String IMG = "images/stslib/powers/32/stun.png";
 

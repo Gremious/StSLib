@@ -96,6 +96,7 @@ public abstract class AbstractGameSuperCopyAction extends AbstractGameAction imp
 
     public void setupKeywords() {
         setupExhaust();
+        setupEthereal();
     }
 
     public void setupExhaust() {
