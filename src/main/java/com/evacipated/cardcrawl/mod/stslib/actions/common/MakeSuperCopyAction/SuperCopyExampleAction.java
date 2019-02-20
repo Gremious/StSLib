@@ -42,4 +42,5 @@ public class SuperCopyExampleAction extends AbstractGameSuperCopyAction {
     public void addAmount() {
         copy.setAmount(3);
     }
+
 }

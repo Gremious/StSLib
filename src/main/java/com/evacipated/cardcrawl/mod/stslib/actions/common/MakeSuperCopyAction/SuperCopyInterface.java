@@ -17,13 +17,12 @@ public interface SuperCopyInterface {
         AUTOPLAY,
         EXHAUSTIVE,
         FLEETING,
-        GRAVE,
+        GRAVE, // GraveField.grave.set(this, true);
         PURGE,
         REFUND,
         RETAIN,
         SNECKO,
-        SOULBOUND,
-        STARTUP
+        SOULBOUND
     }
 
     public void setCard(AbstractCard card);
