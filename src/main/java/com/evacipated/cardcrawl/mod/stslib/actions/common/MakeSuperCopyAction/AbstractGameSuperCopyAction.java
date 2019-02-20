@@ -2,6 +2,7 @@ package com.evacipated.cardcrawl.mod.stslib.actions.common.MakeSuperCopyAction;
 
 import com.evacipated.cardcrawl.mod.stslib.StSLib;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.colorless.Madness;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
@@ -16,6 +17,7 @@ import java.util.Collection;
 public abstract class AbstractGameSuperCopyAction extends AbstractGameAction implements SuperCopyBuilderInterface {
     public static final Logger logger = LogManager.getLogger(StSLib.class.getName());
     public SuperCopyGetSet copy;
+    public AbstractCard card;
 
     public static final UIStrings uiStrings = CardCrawlGame.languagePack.getUIString("stslib:MakeSuperCopyAction");
     public static final String KEYWORD_STRINGS[] = uiStrings.TEXT;
@@ -23,11 +25,12 @@ public abstract class AbstractGameSuperCopyAction extends AbstractGameAction imp
 
     public AbstractGameSuperCopyAction() {
         copy = new SuperCopyGetSet();
+        card = new Madness();
     }
 
     @Override
     public void addCard() {
-        copy.setCard(new Madness());
+        copy.setCard(card);
     }
 
     @Override
