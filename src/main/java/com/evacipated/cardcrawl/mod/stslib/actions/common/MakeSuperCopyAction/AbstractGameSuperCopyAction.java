@@ -1,79 +1,74 @@
 package com.evacipated.cardcrawl.mod.stslib.actions.common.MakeSuperCopyAction;
 
-import basemod.BaseMod;
-import com.badlogic.gdx.graphics.Color;
 import com.evacipated.cardcrawl.mod.stslib.StSLib;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.actions.utility.SFXAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
+import com.megacrit.cardcrawl.cards.colorless.Madness;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
-import com.megacrit.cardcrawl.vfx.cardManip.CardFlashVfx;
-import com.megacrit.cardcrawl.vfx.cardManip.ShowCardAndAddToDiscardEffect;
-import com.megacrit.cardcrawl.vfx.cardManip.ShowCardAndAddToDrawPileEffect;
-import com.megacrit.cardcrawl.vfx.cardManip.ShowCardAndAddToHandEffect;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
-@Deprecated
-public class MakeSuperCopyAction extends AbstractGameAction {
+public abstract class AbstractGameSuperCopyAction extends AbstractGameAction implements SuperCopyBuilderInterface {
     public static final Logger logger = LogManager.getLogger(StSLib.class.getName());
+    public SuperCopyGetSet copy;
 
-    private AbstractCard c;
-    private int amount;
-    private CardGroup addLocation;
-    private List<superCopyKeywords> keywords;
-    private Integer setCost;
-    private boolean removeKeyword;
     public static final UIStrings uiStrings = CardCrawlGame.languagePack.getUIString("stslib:MakeSuperCopyAction");
     public static final String KEYWORD_STRINGS[] = uiStrings.TEXT;
 
 
-    /**
-     * Will not change the card if it already has/doesn't have the keyword, respectively of what you're using the action for.
-     *
-     * @param c             the card that needs to be Copied.
-     * @param keywords      use KeywordEnums
-     * @param setCost       Will change the card cost.
-     * @param removeKeyword Will remove the keyword instead of adding it.
-     * @param randomSpot    If adding to deck or discard, should it add to a random spot or to the top?
-     * @param amount        How many copies this action will add.
-     * @param addLocation   Hand, Draw and Discard pile groups from AbstractDungeon.player
-     */
-    public MakeSuperCopyAction(AbstractCard c, Collection<superCopyKeywords> keywords, boolean removeKeyword, Integer setCost, int amount, final CardGroup addLocation, boolean randomSpot) {
-
-        this.keywords = new ArrayList<>(keywords);
-
-        duration = Settings.ACTION_DUR_FAST;
-        actionType = ActionType.CARD_MANIPULATION;
-
-        this.c = c.makeStatEquivalentCopy();
-        this.keywords = new ArrayList<>(keywords);
-        this.removeKeyword = removeKeyword;
-        this.setCost = setCost;
-        this.amount = amount;
-        this.addLocation = addLocation;
-
+    public AbstractGameSuperCopyAction() {
+        copy = new SuperCopyGetSet();
     }
 
-    public enum superCopyKeywords {
-        INNATE,
-        EXHAUST,
-        ETHEREAL,
-        UNPLAYABLE;
+    @Override
+    public void addCard() {
+        copy.setCard(new Madness());
     }
 
+    @Override
+    public void addKeywords() {
+        Collection<SuperCopyInterface.superCopyKeywords> keywords = new ArrayList<>();
+        copy.setKeywords(keywords);
+    }
+
+    @Override
+    public void addRemoveKeyword() {
+        copy.setRemoveKeyword(false);
+    }
+
+    @Override
+    public void addCost() {
+        copy.setCost(null);
+    }
+
+    @Override
+    public void addAddLocation() {
+        copy.setAddLocation(AbstractDungeon.player.hand);
+    }
+
+    @Override
+    public void addRandomSpot() {
+        copy.setRandomSpot(false);
+    }
+
+    @Override
+    public void addAmount() {
+        copy.setAmount(1);
+    }
+
+
+    @Override
     public void update() {
 
         if (duration == Settings.ACTION_DUR_FAST) {
-            if (keywords != null) {
+          /*  if (keywords != null) {
                 if (keyword.equals(KEYWORD_STRINGS[0])) {
                     if (removeKeyword) {
                         if (c.exhaust) {
@@ -158,7 +153,9 @@ public class MakeSuperCopyAction extends AbstractGameAction {
             AbstractDungeon.player.hand.glowCheck();
             logger.info("Final log. Super Copy Action should be done.");
             //    tickDuration();
+            */
         }
         tickDuration();
     }
 }
+

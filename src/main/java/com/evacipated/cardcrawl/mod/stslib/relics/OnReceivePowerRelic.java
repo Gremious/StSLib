@@ -15,7 +15,7 @@ public interface OnReceivePowerRelic
     /**
      * @param power       The power the player is receiving
      * @param source      The source applying the power
-     * @param stackAmount The amount to stack the power if the player already has it
+     * @param stackAmount The setAmount to stack the power if the player already has it
      * @return            The new stackAmount value
      */
     default int onReceivePowerStacks(AbstractPower power, AbstractCreature source, int stackAmount)
