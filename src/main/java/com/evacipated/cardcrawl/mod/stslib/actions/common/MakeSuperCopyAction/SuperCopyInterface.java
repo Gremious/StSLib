@@ -8,7 +8,6 @@ import java.util.Collection;
 public interface SuperCopyInterface {
 
     enum superCopyKeywords {
-        INNATE,
         EXHAUST,
         ETHEREAL,
         UNPLAYABLE,
