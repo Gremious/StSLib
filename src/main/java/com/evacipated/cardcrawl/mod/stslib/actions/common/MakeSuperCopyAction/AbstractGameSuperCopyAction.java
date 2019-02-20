@@ -3,6 +3,7 @@ package com.evacipated.cardcrawl.mod.stslib.actions.common.MakeSuperCopyAction;
 import com.evacipated.cardcrawl.mod.stslib.StSLib;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.cards.colorless.Madness;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
@@ -16,8 +17,9 @@ import java.util.Collection;
 
 public abstract class AbstractGameSuperCopyAction extends AbstractGameAction implements SuperCopyBuilderInterface {
     public static final Logger logger = LogManager.getLogger(StSLib.class.getName());
+
     public SuperCopyGetSet copy;
-    public AbstractCard card;
+    public AbstractCard card = new Madness();
 
     public static final UIStrings uiStrings = CardCrawlGame.languagePack.getUIString("stslib:MakeSuperCopyAction");
     public static final String KEYWORD_STRINGS[] = uiStrings.TEXT;
@@ -25,7 +27,6 @@ public abstract class AbstractGameSuperCopyAction extends AbstractGameAction imp
 
     public AbstractGameSuperCopyAction() {
         copy = new SuperCopyGetSet();
-        card = new Madness();
     }
 
     @Override
@@ -64,11 +65,35 @@ public abstract class AbstractGameSuperCopyAction extends AbstractGameAction imp
         copy.setAmount(1);
     }
 
+    //--
+
+    public void setupCard(AbstractCard card){};
+
+    public void setupKeywords(Collection<SuperCopyInterface.superCopyKeywords> keywords){};
+
+    public void setupRemoveKeyword(boolean removeKeyword){};
+
+    public void setupCost(Integer setCost){};
+
+    public void setupAddLocation(CardGroup addLocation){};
+
+    public void setupRandomSpot(boolean randomSpot){};
+
+    public void setupAmount(int amount){};
+
+    //--
 
     @Override
     public void update() {
 
         if (duration == Settings.ACTION_DUR_FAST) {
+
+
+
+
+
+
+
           /*  if (keywords != null) {
                 if (keyword.equals(KEYWORD_STRINGS[0])) {
                     if (removeKeyword) {
