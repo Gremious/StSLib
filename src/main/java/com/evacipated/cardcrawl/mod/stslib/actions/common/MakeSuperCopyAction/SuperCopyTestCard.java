@@ -18,9 +18,9 @@ public class SuperCopyTestCard extends CustomCard {
 
     public static final String IMG = "images/stslib/powers/32/stun.png";
 
-    public static final String NAME = "Test";
-    public static final String DESCRIPTION = "Copy a card !M! times.";
-    public static final String UPGRADE_DESCRIPTION = "Copy a card !M! times.";
+    public static final String NAME = "Shiv Super Copy Test";
+    public static final String DESCRIPTION = "Add 3 shivs to your hand with removed Exhaust.";
+    public static final String UPGRADE_DESCRIPTION = "Add 3 shivs to your hand with removed Exhaust.";
 
     // /TEXT DECLARATION/
 
@@ -34,7 +34,6 @@ public class SuperCopyTestCard extends CustomCard {
 
     private static final int COST = 0;
 
-    private static final int MAGIC = 3;
 
     // /STAT DECLARATION/
 
@@ -42,7 +41,6 @@ public class SuperCopyTestCard extends CustomCard {
     public SuperCopyTestCard() {
         super(ID, NAME, IMG, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET);
         this.exhaust = true;
-        this.magicNumber = this.baseMagicNumber = MAGIC;
 
     }
 

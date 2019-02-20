@@ -5,9 +5,10 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import java.util.Collection;
 
 public class SuperCopyExampleAction extends AbstractGameSuperCopyAction {
+// Takes in a card and a keyword. Returns 3 copies of said card to your hand with the keyword removed.
 
-    AbstractCard c;
-    Collection<SuperCopyInterface.superCopyKeywords> keywords;
+    private AbstractCard c;
+    private Collection<SuperCopyInterface.superCopyKeywords> keywords;
 
     /**
      * @param c        The card to make 3 copies of with removed keyword
@@ -40,10 +41,5 @@ public class SuperCopyExampleAction extends AbstractGameSuperCopyAction {
     @Override
     public void addAmount() {
         copy.setAmount(3);
-    }
-
-    @Override
-    public void update() {
-        super.update();
     }
 }

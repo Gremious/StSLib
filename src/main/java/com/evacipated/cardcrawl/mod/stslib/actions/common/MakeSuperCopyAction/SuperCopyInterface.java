@@ -11,7 +11,19 @@ public interface SuperCopyInterface {
         INNATE,
         EXHAUST,
         ETHEREAL,
-        UNPLAYABLE;
+        UNPLAYABLE,
+
+        // STS LIB:
+        AUTOPLAY,
+        EXHAUSTIVE,
+        FLEETING,
+        GRAVE,
+        PURGE,
+        REFUND,
+        RETAIN,
+        SNECKO,
+        SOULBOUND,
+        STARTUP
     }
 
     public void setCard(AbstractCard card);
@@ -27,6 +39,5 @@ public interface SuperCopyInterface {
     public void setRandomSpot(boolean randomSpot);
 
     public void setAmount(int amount);
-
 
 }
