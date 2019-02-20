@@ -92,11 +92,27 @@ public abstract class AbstractGameSuperCopyAction extends AbstractGameAction imp
     //--
 
     public void setupKeywords() {
-        Collection<SuperCopyInterface.superCopyKeywords> keywords = copy.getKeywords();
+        setupExhaust();
+    }
 
-        if (keywords != null) {
-            for (Enum<SuperCopyInterface.superCopyKeywords> en : keywords) {
-                // Check for each keyword
+    public void setupExhaust() {
+        if (copy.getKeywords() != null && copy.getKeywords().contains(SuperCopyInterface.superCopyKeywords.EXHAUST)) {
+            for (AbstractCard c : amountCards) {
+                if (copy.getRemoveKeyword()) {
+
+                    if (c.exhaust) {
+                        c.exhaust = false;
+                        c.rawDescription = c.rawDescription.replaceAll(KEYWORD_STRINGS[2], "");
+                        logger.info("Adding " + c + " with REMOVED Exhaust.");
+                    }
+
+                } else {
+                    if (!c.exhaust) {
+                        c.exhaust = true;
+                        c.rawDescription = c.rawDescription + KEYWORD_STRINGS[3];
+                        logger.info("Adding " + c + " with Exhaust.");
+                    }
+                }
             }
         }
     }
@@ -153,26 +169,6 @@ public abstract class AbstractGameSuperCopyAction extends AbstractGameAction imp
             setupAddLocation();
             tickDuration();
  /*
-            if (copy.getKeywords() != null) {
-                if (keyword.equals(KEYWORD_STRINGS[0])) {
-                    if (removeKeyword) {
-                        if (c.exhaust) {
-                            c.exhaust = false;
-                            if (setCost != null) c.cost = setCost;
-                            c.rawDescription = c.rawDescription.replaceAll(KEYWORD_STRINGS[1], "");
-                            logger.info("Adding " + c + " with REMOVED Exhaust.");
-                        }
-                    } else {
-                        if (!c.exhaust) {
-                            c.exhaust = true;
-                            if (setCost != null) c.cost = setCost;
-                            c.rawDescription = c.rawDescription + KEYWORD_STRINGS[2];
-                            logger.info("Adding " + c + " with Exhaust.");
-                        }
-                    }
-
-                }
-
            if (keywords != null) {
                 if (keyword.equals(KEYWORD_STRINGS[0])) {
                     if (removeKeyword) {
